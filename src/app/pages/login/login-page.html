@@ -1,0 +1,75 @@
+<div class="layout">
+  <div class="showcase" aria-hidden="true">
+    <div class="brand">
+      <span class="mark">If</span>
+      <span class="name">Itemforge</span>
+    </div>
+    <div class="wall">
+      @for (tile of wall; track tile.num) {
+        <div class="tile wall-tile">
+          <span class="mono">{{ tile.num }}</span>
+          <span class="wall-symbol" [class.lit]="tile.lit">{{ tile.symbol }}</span>
+        </div>
+      }
+    </div>
+    <div class="pitch">
+      <p class="pitch-title">Every relic,<br />one inventory.</p>
+      <p class="muted">Swords, wands and wearables from the Jordan and Saudi vaults — priced, stocked and ready to equip.</p>
+    </div>
+  </div>
+
+  <div class="form-side">
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="mobile-brand">
+        <span class="mark">If</span>
+        <span class="name">Itemforge</span>
+      </div>
+
+      <div class="heading">
+        <h1>Sign in</h1>
+        <p class="muted">Use your player account to browse and buy items.</p>
+      </div>
+
+      @if (error()) {
+        <div class="banner banner-error" role="alert">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" />
+          </svg>
+          <span>{{ error() }}</span>
+        </div>
+      } @else if (expired()) {
+        <div class="banner" role="status">Your session expired. Sign in again to continue.</div>
+      }
+
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username" autocomplete="username" autocapitalize="none"
+          spellcheck="false" [attr.aria-invalid]="showFieldError('username')"
+          [attr.aria-describedby]="showFieldError('username') ? 'username-error' : null" />
+        @if (showFieldError('username')) {
+          <p id="username-error" class="field-error">Enter your username.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" autocomplete="current-password"
+          [attr.aria-invalid]="showFieldError('password')"
+          [attr.aria-describedby]="showFieldError('password') ? 'password-error' : null" />
+        @if (showFieldError('password')) {
+          <p id="password-error" class="field-error">Enter your password.</p>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary submit" [disabled]="submitting()" [attr.aria-busy]="submitting()">
+        @if (submitting()) {
+          <app-spinner /> Signing in…
+        } @else {
+          Sign in
+        }
+      </button>
+      <p class="hint">Your session is kept on this device until you log out.</p>
+    </form>
+  </div>
+</div>

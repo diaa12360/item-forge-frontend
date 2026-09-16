@@ -1,0 +1,69 @@
+@let s = state();
+<main class="container page">
+  <a class="back" [routerLink]="backToUrl">← Back to items</a>
+
+  @if (s.status === 'loading') {
+    <div class="layout" aria-busy="true">
+      <span class="sr-only" role="status">Loading item…</span>
+      <div class="skeleton art"></div>
+      <div class="info">
+        <div class="skeleton" style="height: 26px; width: 120px"></div>
+        <div class="skeleton" style="height: 56px; width: 80%"></div>
+        <div class="skeleton" style="height: 18px; width: 60%"></div>
+        <div class="skeleton" style="height: 48px; width: 220px"></div>
+      </div>
+    </div>
+  } @else if (s.status === 'error') {
+    @if (s.error.status === 404) {
+      <app-error-state heading="Item not found" [retryable]="false"
+        [message]="s.error.code === 'invalid_id' ? s.error.message : 'This item doesn\'t exist or may have been removed.'">
+        <a class="btn" routerLink="/products">Back to items</a>
+      </app-error-state>
+    } @else {
+      <app-error-state heading="Couldn't load this item" [message]="s.error.message"
+        [requestId]="s.error.requestId" (retry)="retry()" />
+    }
+  } @else if (view(); as v) {
+    <article class="layout">
+      <div class="tile art">
+        <img class="art-img" [src]="v.image" [alt]="v.product.title" width="800" height="640" />
+        <div class="art-top mono">
+          <span>#{{ v.number }}</span><span>{{ v.locationLabel }} vault</span>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="titles">
+          <span class="chip">{{ v.product.location }} · {{ v.locationLabel | uppercase }}</span>
+          <h1>{{ v.product.title }}</h1>
+          <p class="description">{{ v.product.description }}</p>
+        </div>
+
+        <p class="price mono">{{ v.price }} <span class="currency">{{ v.currency }}</span></p>
+
+        <dl class="facts">
+          <div><dt>Item ID</dt><dd class="mono">{{ v.number }}</dd></div>
+          <div><dt>Location</dt><dd>{{ v.locationLabel }}</dd></div>
+          <div><dt>Listed</dt><dd>{{ v.product.created_at | date: 'd MMM y' }}</dd></div>
+        </dl>
+
+        <div class="buy">
+          <button type="button" class="btn btn-primary btn-lg" (click)="openDialog()">
+            Buy for {{ v.price }} {{ v.currency }}
+          </button>
+          <p class="buy-note">You'll confirm before the order is placed.</p>
+        </div>
+      </div>
+    </article>
+
+    <app-confirm-dialog heading="Confirm purchase" confirmLabel="Confirm & buy" busyLabel="Placing order…"
+      [open]="dialogOpen()" [busy]="purchasing()" [error]="purchaseError()"
+      (confirmed)="confirmPurchase()" (closed)="closeDialog()">
+      <p>You're buying one <strong class="strong">{{ v.product.title }}</strong> from the {{ v.locationLabel }} vault.</p>
+      <div class="total">
+        <span>Total</span>
+        <span class="mono total-value">{{ v.price }} <span class="currency">{{ v.currency }}</span></span>
+      </div>
+    </app-confirm-dialog>
+  }
+</main>

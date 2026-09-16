@@ -1,0 +1,6 @@
+.skip-link {
+  position: absolute; left: 16px; top: -60px; z-index: 10; padding: 10px 14px; border-radius: var(--radius-sm);
+  background: var(--accent); color: var(--on-accent); font-weight: 600;
+}
+.skip-link:focus { top: 12px; }
+#content:focus { outline: none; }

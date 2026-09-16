@@ -1,0 +1,23 @@
+header { border-bottom: 1px solid var(--line); }
+.bar { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; color: var(--text); min-height: 44px; }
+.mark {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--accent);
+  color: var(--on-accent); display: flex; align-items: center; justify-content: center;
+  font: 800 17px/1 var(--font-display);
+}
+.name { font: 700 20px/1 var(--font-display); letter-spacing: -0.01em; }
+nav { display: flex; align-items: center; gap: 24px; }
+.link { color: var(--text-2); font-weight: 500; font-size: 15px; display: none; }
+.link.active { color: var(--text); }
+.user { display: none; align-items: center; gap: 10px; }
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--line); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600;
+}
+.username { font-size: 14px; color: var(--text-2); }
+.btn { font-size: 14px; }
+@media (min-width: 768px) {
+  .link { display: inline; }
+  .user { display: flex; }
+}

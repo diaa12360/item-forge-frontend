@@ -1,0 +1,18 @@
+<header class="no-print">
+  <div class="container bar">
+    <a routerLink="/products" class="brand" aria-label="Itemforge home">
+      <span class="mark" aria-hidden="true">If</span>
+      <span class="name">Itemforge</span>
+    </a>
+    <nav aria-label="Main">
+      <a routerLink="/products" routerLinkActive="active" class="link">Items</a>
+      @if (auth.user(); as user) {
+        <span class="user">
+          <span class="avatar" aria-hidden="true">{{ initials() }}</span>
+          <span class="username">{{ user.username }}</span>
+        </span>
+      }
+      <button type="button" class="btn" (click)="auth.logout()">Log out</button>
+    </nav>
+  </div>
+</header>

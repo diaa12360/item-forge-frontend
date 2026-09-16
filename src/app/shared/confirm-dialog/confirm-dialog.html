@@ -1,0 +1,18 @@
+<dialog #dialog aria-labelledby="confirm-title" (cancel)="onCancelEvent($event)" (close)="closed.emit()">
+  <h2 id="confirm-title">{{ heading() }}</h2>
+  <div class="content"><ng-content /></div>
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+  <div class="actions">
+    <button type="button" class="btn" [disabled]="busy()" (click)="dismiss()">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="busy()" [attr.aria-busy]="busy()"
+      (click)="confirmed.emit()">
+      @if (busy()) {
+        <app-spinner /> {{ busyLabel() }}
+      } @else {
+        {{ confirmLabel() }}
+      }
+    </button>
+  </div>
+</dialog>

@@ -1,0 +1,13 @@
+.box {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 48px 24px; text-align: center;
+  border-radius: var(--radius-lg); background: var(--danger-surface); border: 1px solid var(--danger-line);
+}
+.icon {
+  width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--danger-line);
+  color: var(--danger-text); display: flex; align-items: center; justify-content: center;
+}
+h2 { font-size: 24px; }
+.message { color: var(--danger-muted); max-width: 420px; }
+.request-id { font-size: 12px; color: var(--danger-muted); }
+.btn { margin-top: 8px; }

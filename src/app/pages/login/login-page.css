@@ -1,0 +1,61 @@
+.layout { min-height: 100vh; display: flex; }
+
+.showcase {
+  display: none; width: 52%; max-width: 760px; padding: 64px;
+  flex-direction: column; justify-content: space-between; gap: 48px;
+  border-right: 1px solid var(--line);
+}
+
+.brand, .mobile-brand { display: flex; align-items: center; gap: 12px; }
+.mark {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--accent); color: var(--on-accent);
+  display: flex; align-items: center; justify-content: center; font: 800 17px/1 var(--font-display);
+}
+.name { font: 700 20px/1 var(--font-display); }
+
+.wall { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.wall-tile {
+  aspect-ratio: 1 / 0.95; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: space-between;
+  font-size: 11px; color: var(--muted);
+}
+.wall-symbol { font: 800 40px/1 var(--font-display); letter-spacing: -0.04em; color: var(--line-strong); }
+.wall-symbol.lit { color: var(--accent); }
+
+.pitch { display: flex; flex-direction: column; gap: 14px; }
+.pitch-title { font: 800 60px/0.98 var(--font-display); letter-spacing: -0.035em; }
+.pitch .muted { font-size: 17px; max-width: 460px; }
+
+.form-side { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 48px var(--gutter); }
+form { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 22px; }
+
+.heading { display: flex; flex-direction: column; gap: 8px; }
+h1 { font-size: 34px; font-weight: 700; }
+
+.banner {
+  display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line-strong); font-size: 14px; line-height: 1.4;
+}
+.banner svg { flex-shrink: 0; margin-top: 1px; }
+.banner-error { background: var(--danger-bg); border-color: var(--danger-line); color: var(--danger-text); }
+
+.field { display: flex; flex-direction: column; gap: 8px; }
+label { font-size: 14px; font-weight: 500; color: var(--text-2); }
+input {
+  height: 50px; padding: 0 14px; border-radius: var(--radius); border: 1px solid var(--line-strong);
+  background: var(--surface); color: var(--text); font: 400 16px var(--font-body);
+}
+input:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 0; border-color: var(--accent); }
+input[aria-invalid='true'] { border-color: var(--danger-line); }
+.field-error { font-size: 13px; color: var(--danger-text); }
+
+.submit { min-height: 52px; font-size: 16px; }
+.hint { font-size: 13px; color: var(--faint); text-align: center; }
+
+@media (min-width: 1024px) {
+  .showcase { display: flex; }
+  .mobile-brand { display: none; }
+}
+@media (max-width: 1279px) {
+  .pitch-title { font-size: 44px; }
+}

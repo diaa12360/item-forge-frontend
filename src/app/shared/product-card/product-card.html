@@ -1,0 +1,18 @@
+@let p = product();
+<a class="card" [routerLink]="['/products', p.id]" [state]="{ backTo: backTo() }">
+  <div class="tile">
+    <img class="tile-img" [src]="image()" [alt]="p.title" loading="lazy" width="400" height="148" />
+    <div class="tile-top">
+      <span class="mono num">#{{ number() }}</span>
+      <span class="chip">{{ p.location }}</span>
+    </div>
+  </div>
+  <div class="body">
+    <h2 class="title">{{ p.title }}</h2>
+    <p class="description">{{ p.description }}</p>
+    <div class="footer">
+      <span class="mono price">{{ price() }} <span class="currency">{{ currency() }}</span></span>
+      <span class="view" aria-hidden="true">View →</span>
+    </div>
+  </div>
+</a>

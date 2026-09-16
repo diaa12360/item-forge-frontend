@@ -1,0 +1,66 @@
+.page { padding-top: 40px; padding-bottom: 64px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.narrow { width: 100%; max-width: 640px; }
+
+.heading { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.check {
+  width: 52px; height: 52px; border-radius: 50%; background: var(--success-bg); border: 1px solid var(--success-line);
+  color: var(--success-text); display: flex; align-items: center; justify-content: center;
+}
+h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; }
+
+.receipt, .paper-skeleton { width: 100%; max-width: 640px; border-radius: 16px; overflow: hidden; }
+.paper-skeleton { padding: 28px; display: flex; flex-direction: column; gap: 16px; background: var(--surface); border: 1px solid var(--line); }
+
+.receipt { background: var(--paper); color: var(--paper-ink); border: 1px solid var(--line-strong); }
+.stack { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+.receipt-head {
+  padding: 24px; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+  border-bottom: 2px dashed var(--paper-dash);
+}
+.label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper-muted); }
+.reference { font-size: 20px; font-weight: 600; overflow-wrap: anywhere; }
+.status {
+  flex-shrink: 0; padding: 6px 10px; border-radius: 999px; background: var(--status-bg); color: var(--status-text);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+}
+
+.meta {
+  margin: 0; padding: 20px 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 24px;
+  border-bottom: 1px solid var(--paper-line);
+}
+.meta div { display: flex; flex-direction: column; gap: 4px; }
+dt { font-size: 13px; color: var(--paper-muted); }
+dd { margin: 0; font-size: 16px; font-weight: 500; }
+
+.item { padding: 20px 24px; display: flex; gap: 16px; align-items: center; border-bottom: 1px solid var(--paper-line); }
+.item-mark {
+  width: 56px; height: 56px; flex-shrink: 0; border-radius: 12px; background: var(--surface-2); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font: 800 24px/1 var(--font-display); letter-spacing: -0.04em;
+}
+.item-title { font: 700 20px/1.2 var(--font-display); }
+.item-sub { font-size: 14px; color: var(--paper-muted); }
+
+.lines { padding: 20px 24px 28px; display: flex; flex-direction: column; gap: 12px; }
+.line { display: flex; justify-content: space-between; gap: 16px; font-size: 15px; }
+.line > span:first-child { color: var(--paper-muted); }
+.line.total { align-items: baseline; padding-top: 14px; border-top: 1px solid var(--paper-line); }
+.line.total > span:first-child { color: var(--paper-ink); font-weight: 600; font-size: 16px; }
+.total-value { font-size: 26px; font-weight: 600; }
+.currency { font-size: 15px; color: var(--paper-muted); }
+
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+
+@media (min-width: 768px) {
+  .page { padding-top: 48px; }
+  h1 { font-size: 44px; }
+  .receipt-head, .meta, .item, .lines { padding-left: 32px; padding-right: 32px; }
+  .reference { font-size: 24px; }
+}
+
+@media print {
+  .page { padding: 0; }
+  .receipt { max-width: none; border: 1px solid #999; border-radius: 0; background: #fff; color: #000; }
+  .status { background: none; color: #000; border: 1px solid #000; }
+  .item-mark { background: none; color: #000; border: 1px solid #000; }
+}

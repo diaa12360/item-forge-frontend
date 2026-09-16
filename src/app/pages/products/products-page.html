@@ -1,0 +1,68 @@
+@let s = state();
+<main class="container page">
+  <div class="header">
+    <div class="intro">
+      <p class="eyebrow">
+        The armory
+        @if (s.status === 'ready') {
+          · {{ s.data.total_items }} items
+        }
+      </p>
+      <h1>Gear up for the next run.</h1>
+    </div>
+
+    <div class="toolbar">
+      <div class="segmented" role="group" aria-label="Filter by location">
+        @for (option of locations; track option.short) {
+          <button type="button" [attr.aria-pressed]="(query().location ?? null) === option.value"
+            (click)="setLocation(option.value)">
+            <span class="long">{{ option.label }}</span><span class="short">{{ option.short }}</span>
+          </button>
+        }
+      </div>
+      <label class="sort">
+        <span>Sort</span>
+        <select (change)="setSort($event)">
+          @for (option of sorts; track option.value) {
+            <option [value]="option.value" [selected]="(query().sort ?? 'id_asc') === option.value">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+    </div>
+  </div>
+
+  @if (s.status === 'loading') {
+    <div class="grid" aria-busy="true">
+      <span class="sr-only" role="status">Loading items…</span>
+      @for (i of skeletons; track i) {
+        <app-skeleton-card />
+      }
+    </div>
+  } @else if (s.status === 'error') {
+    <app-error-state heading="Couldn't reach the vault" [message]="s.error.message"
+      [requestId]="s.error.requestId" (retry)="retry()" />
+  } @else if (s.data.items.length === 0) {
+    <div class="empty">
+      <span class="empty-mark" aria-hidden="true">∅</span>
+      @if (s.data.total_items > 0) {
+        <h2>This page is past the end</h2>
+        <p class="muted">There are only {{ s.data.total_pages }} pages of items.</p>
+        <button type="button" class="btn" (click)="firstPage()">Go to page 1</button>
+      } @else {
+        <h2>The vault is empty</h2>
+        <p class="muted">No items match this filter.</p>
+        @if (isFiltered()) {
+          <button type="button" class="btn" (click)="setLocation(null)">Show all items</button>
+        }
+      }
+    </div>
+  } @else {
+    <ul class="grid">
+      @for (product of s.data.items; track product.id) {
+        <li><app-product-card [product]="product" [backTo]="backTo()" /></li>
+      }
+    </ul>
+    <app-pagination [page]="s.data.page" [pageSize]="s.data.page_size" [totalPages]="s.data.total_pages"
+      [totalItems]="s.data.total_items" [itemsOnPage]="s.data.items.length" />
+  }
+</main>

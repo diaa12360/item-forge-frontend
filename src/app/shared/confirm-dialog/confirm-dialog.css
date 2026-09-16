@@ -1,0 +1,12 @@
+dialog {
+  width: min(460px, calc(100vw - 32px)); padding: 28px; margin: auto;
+  border-radius: 16px; background: var(--surface); border: 1px solid var(--line-strong); color: var(--text);
+}
+dialog::backdrop { background: var(--backdrop); }
+h2 { font-size: 26px; font-weight: 700; }
+.content { margin-top: 10px; display: flex; flex-direction: column; gap: 16px; color: var(--muted); }
+.error {
+  margin-top: 16px; padding: 12px 14px; border-radius: var(--radius);
+  background: var(--danger-bg); border: 1px solid var(--danger-line); color: var(--danger-text); font-size: 14px;
+}
+.actions { margin-top: 24px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
